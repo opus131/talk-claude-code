@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Evolution of AI-Assisted Coding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .slide {
+            display: none;
+            min-height: 100vh;
+            width: 100vw;
+            padding: 6rem;
+            box-sizing: border-box;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .slide.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid;
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        .nav-button {
+            position: fixed;
+            bottom: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        #prevBtn { left: 2rem; }
+        #nextBtn { right: 2rem; }
+        .slide-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .indicator-dot.active {
+            background: white;
+            width: 30px;
+            border-radius: 5px;
+        }
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.875rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="flex flex-col items-center justify-center w-full text-white">
+            <h1 class="text-9xl font-bold mb-12 text-center leading-tight">The Evolution of<br/>AI-Assisted Coding</h1>
+            <p class="text-5xl opacity-90 mb-16 font-light">From Autocomplete to Autonomous Agents</p>
+            <div class="flex items-center gap-12 text-4xl opacity-80 font-semibold">
+                <span>2021</span>
+                <div class="w-48 h-2 bg-white opacity-50 rounded-full"></div>
+                <span>2025</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 2: GitHub Copilot - The Beginning -->
+    <div class="slide" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <div class="mb-12">
+                <span class="text-xl font-semibold uppercase tracking-wider opacity-75">2021</span>
+                <h2 class="text-8xl font-bold mb-6 mt-2">GitHub Copilot</h2>
+                <p class="text-5xl opacity-90 font-light">AI Pair Programming Begins</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12">
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-8">🎯 Capabilities</h3>
+                    <ul class="space-y-5 text-3xl font-light">
+                        <li>Multi-line suggestions</li>
+                        <li>Function generation</li>
+                        <li>Context awareness</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-8">🚀 Impact</h3>
+                    <ul class="space-y-5 text-3xl font-light">
+                        <li>Reduced boilerplate</li>
+                        <li>Changed expectations</li>
+                        <li>Sparked revolution</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: ChatGPT Era -->
+    <div class="slide" style="background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <div class="mb-12">
+                <span class="text-xl font-semibold uppercase tracking-wider opacity-75">2022-2023</span>
+                <h2 class="text-8xl font-bold mb-6 mt-2">The ChatGPT Era</h2>
+                <p class="text-5xl opacity-90 font-light">Copy/Paste Programming</p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">The Workflow</h3>
+                    <div class="space-y-4 text-3xl font-light">
+                        <p>1. Describe problem in ChatGPT</p>
+                        <p>2. Copy generated code</p>
+                        <p>3. Paste into IDE</p>
+                        <p>4. Debug, adjust, repeat</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                        <h3 class="text-4xl font-bold mb-4">GPT-4 Arrives</h3>
+                        <p class="text-3xl font-light">More capable, still isolated from your code</p>
+                    </div>
+
+                    <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                        <h3 class="text-4xl font-bold mb-4">Code Interpreter</h3>
+                        <p class="text-3xl font-light">Execute & download files... but still separate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white bg-opacity-5 rounded-2xl p-8 backdrop-blur-sm text-center">
+                <p class="text-3xl font-light">We thought this was revolutionary. <span class="font-semibold">It was just the beginning.</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: The Evolution -->
+    <div class="slide" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <h2 class="text-8xl font-bold mb-12">The Rapid Evolution</h2>
+            <p class="text-5xl opacity-90 mb-16 font-light">Suggestion → Collaboration</p>
+
+            <div class="space-y-10 max-w-6xl">
+                <div class="flex items-start gap-8">
+                    <div class="timeline-dot border-blue-400 mt-3" style="width: 24px; height: 24px;"></div>
+                    <div class="flex-1">
+                        <h3 class="text-5xl font-bold mb-3">Chat-Based Assistants</h3>
+                        <p class="text-3xl opacity-90 font-light">Conversational code help</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-8">
+                    <div class="timeline-dot border-purple-400 mt-3" style="width: 24px; height: 24px;"></div>
+                    <div class="flex-1">
+                        <h3 class="text-5xl font-bold mb-3">AI-Native IDEs</h3>
+                        <p class="text-3xl opacity-90 font-light">Full codebase understanding</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-8">
+                    <div class="timeline-dot border-pink-400 mt-3" style="width: 24px; height: 24px;"></div>
+                    <div class="flex-1">
+                        <h3 class="text-5xl font-bold mb-3">Agentic AI</h3>
+                        <p class="text-3xl opacity-90 font-light">Actions, not just suggestions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm max-w-5xl">
+                <p class="text-4xl font-semibold">From <span class="text-blue-300">Passive</span> → <span class="text-green-300">Active</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Claude Code - The Pinnacle -->
+    <div class="slide" style="background: linear-gradient(135deg, #b45309 0%, #991b1b 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <div class="mb-12">
+                <span class="text-xl font-semibold uppercase tracking-wider opacity-75">2024-2025</span>
+                <h2 class="text-8xl font-bold mb-6 mt-2">Claude Code</h2>
+                <p class="text-5xl opacity-90 font-light">Autonomous Agent</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-5xl font-bold mb-8">🎯 Capabilities</h3>
+                    <div class="space-y-6">
+                        <div class="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur-sm">
+                            <h4 class="font-bold text-3xl mb-3">Terminal-Native</h4>
+                            <p class="opacity-90 text-2xl font-light">Your actual environment</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur-sm">
+                            <h4 class="font-bold text-3xl mb-3">Fully Autonomous</h4>
+                            <p class="opacity-90 text-2xl font-light">Reads, writes, tests, commits</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur-sm">
+                            <h4 class="font-bold text-3xl mb-3">Task-Oriented</h4>
+                            <p class="opacity-90 text-2xl font-light">You describe, AI implements</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-5xl font-bold mb-8">🚀 The Shift</h3>
+                    <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm mb-8">
+                        <div class="space-y-6 text-3xl font-light">
+                            <p><span class="font-bold">Before:</span> AI suggests → You code</p>
+                            <p><span class="font-bold">Now:</span> You delegate → AI codes</p>
+                            <hr class="border-white border-opacity-30 my-6"/>
+                            <p class="text-4xl font-semibold">It's delegation,<br/>not autocomplete</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: The Future -->
+    <div class="slide" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <div class="flex flex-col items-center justify-center w-full text-white">
+            <h2 class="text-8xl font-bold mb-16 text-center">The Journey</h2>
+
+            <div class="max-w-6xl w-full mb-16">
+                <div class="flex items-center justify-between">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">✏️</div>
+                        <div class="font-bold text-3xl">Autocomplete</div>
+                        <div class="text-xl opacity-75 mt-2">2021</div>
+                    </div>
+                    <div class="flex-1 h-2 bg-gradient-to-r from-blue-500 to-purple-500 mx-6 rounded-full"></div>
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">💬</div>
+                        <div class="font-bold text-3xl">Chat</div>
+                        <div class="text-xl opacity-75 mt-2">2022-23</div>
+                    </div>
+                    <div class="flex-1 h-2 bg-gradient-to-r from-purple-500 to-pink-500 mx-6 rounded-full"></div>
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🤝</div>
+                        <div class="font-bold text-3xl">IDEs</div>
+                        <div class="text-xl opacity-75 mt-2">2023-24</div>
+                    </div>
+                    <div class="flex-1 h-2 bg-gradient-to-r from-pink-500 to-red-500 mx-6 rounded-full"></div>
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🤖</div>
+                        <div class="font-bold text-3xl">Agents</div>
+                        <div class="text-xl opacity-75 mt-2">2024-25</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white bg-opacity-5 rounded-3xl p-12 backdrop-blur-sm max-w-5xl">
+                <div class="grid grid-cols-2 gap-10 text-3xl font-light">
+                    <div>
+                        <div class="text-5xl mb-4">⚡</div>
+                        <p>Hours → Minutes</p>
+                    </div>
+                    <div>
+                        <div class="text-5xl mb-4">🎯</div>
+                        <p>Delegate tedium</p>
+                    </div>
+                    <div>
+                        <div class="text-5xl mb-4">🧠</div>
+                        <p>Tasks, not lines</p>
+                    </div>
+                    <div>
+                        <div class="text-5xl mb-4">🚀</div>
+                        <p>AI as dev team</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-4xl opacity-90 text-center font-light max-w-5xl leading-relaxed">
+                From <span class="text-blue-400 font-bold">autocomplete</span> to <span class="text-green-400 font-bold">autonomous agents</span> in 4 years
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Section Divider - Claude Code Features -->
+    <div class="slide" style="background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);">
+        <div class="flex flex-col items-center justify-center w-full text-white">
+            <h2 class="text-9xl font-bold mb-12 text-center">Claude Code</h2>
+            <p class="text-6xl opacity-90 font-light">Feature Deep Dive</p>
+            <div class="mt-16 flex gap-8 text-2xl opacity-75">
+                <span>Custom Commands</span>
+                <span>•</span>
+                <span>Agents</span>
+                <span>•</span>
+                <span>Hooks</span>
+                <span>•</span>
+                <span>Skills</span>
+                <span>•</span>
+                <span>MCP</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Custom Slash Commands -->
+    <div class="slide" style="background: linear-gradient(135deg, #0369a1 0%, #075985 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <h2 class="text-8xl font-bold mb-8">Slash Commands</h2>
+            <p class="text-5xl opacity-90 mb-16 font-light">Custom Workflows, One Command</p>
+
+            <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm mb-12">
+                <h3 class="text-4xl font-bold mb-6">Real Example: /git-commit-staged</h3>
+                <div class="space-y-4 text-2xl font-light">
+                    <p>✓ Analyzes git staged changes</p>
+                    <p>✓ Generates conventional commit messages</p>
+                    <p>✓ Supports flags: --fixes, --refs, --auto-confirm</p>
+                    <p>✓ Enforces commit conventions automatically</p>
+                </div>
+            </div>
+
+            <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                <h3 class="text-4xl font-bold mb-6">Another Example: /slack</h3>
+                <div class="space-y-4 text-2xl font-mono">
+                    <div class="bg-black bg-opacity-30 rounded-lg p-4">
+                        <span class="text-yellow-300">/slack heiko Meeting at 3pm</span>
+                    </div>
+                    <p class="text-2xl font-sans font-light">Sends Slack messages via webhooks from CLI</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Agents -->
+    <div class="slide" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <h2 class="text-8xl font-bold mb-8">Custom Agents</h2>
+            <p class="text-5xl opacity-90 mb-16 font-light">Specialized AI Workers</p>
+
+            <div class="space-y-8">
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">💬 slack-messenger</h3>
+                    <p class="text-3xl font-light">Natural language → Slack webhooks</p>
+                    <p class="text-2xl opacity-75 mt-3 font-mono">"tell heiko: meeting at 3pm"</p>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">📦 npm-package-updater</h3>
+                    <p class="text-3xl font-light">Updates packages across monorepo workspaces</p>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">🔍 gh-issue-retriever</h3>
+                    <p class="text-3xl font-light">Fetches and analyzes GitHub issues</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-gradient-to-r from-purple-500 to-pink-500 bg-opacity-20 rounded-2xl p-8 backdrop-blur-sm">
+                <p class="text-3xl font-semibold text-center">Custom agents for domain-specific workflows</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 9: Permissions System -->
+    <div class="slide" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <h2 class="text-8xl font-bold mb-8">Permissions</h2>
+            <p class="text-5xl opacity-90 mb-16 font-light">Fine-Grained Control</p>
+
+            <div class="grid grid-cols-3 gap-8 mb-12">
+                <div class="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur-sm">
+                    <h3 class="text-4xl font-bold mb-6 text-green-300">Allow</h3>
+                    <div class="text-2xl font-mono space-y-2">
+                        <div>git status</div>
+                        <div>git commit</div>
+                        <div>pnpm build</div>
+                        <div>MCP tools</div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur-sm">
+                    <h3 class="text-4xl font-bold mb-6 text-yellow-300">Ask</h3>
+                    <div class="text-2xl font-mono space-y-2">
+                        <div>git push</div>
+                        <div>rm files</div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-2xl p-8 backdrop-blur-sm">
+                    <h3 class="text-4xl font-bold mb-6 text-red-300">Deny</h3>
+                    <div class="text-2xl font-mono space-y-2">
+                        <div>pnpm run dev</div>
+                        <div>pnpm run start</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-green-500 to-emerald-500 bg-opacity-20 rounded-2xl p-8 backdrop-blur-sm text-center">
+                <p class="text-3xl font-semibold">Granular security without blocking productivity</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 10: Skills -->
+    <div class="slide" style="background: linear-gradient(135deg, #db2777 0%, #be185d 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <h2 class="text-8xl font-bold mb-8">Skills</h2>
+            <p class="text-5xl opacity-90 mb-16 font-light">Modular Capabilities</p>
+
+            <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm mb-12">
+                <p class="text-3xl font-light leading-relaxed">Installable packages that extend Claude's abilities with domain-specific knowledge</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12">
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">📄 PDF Skill</h3>
+                    <p class="text-3xl font-light">Read and analyze PDF documents</p>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">📊 Excel Skill</h3>
+                    <p class="text-3xl font-light">Process spreadsheets and data</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-gradient-to-r from-pink-500 to-red-500 bg-opacity-20 rounded-2xl p-8 backdrop-blur-sm text-center">
+                <p class="text-3xl font-light">Installed via <span class="font-mono text-pink-200">skills.json</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 11: MCP Servers -->
+    <div class="slide" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);">
+        <div class="flex flex-col justify-center w-full text-white">
+            <h2 class="text-8xl font-bold mb-8">MCP Servers</h2>
+            <p class="text-5xl opacity-90 mb-16 font-light">Model Context Protocol</p>
+
+            <div class="mb-12 bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                <p class="text-3xl font-light leading-relaxed">Connect Claude to external tools and data sources in real-time</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12">
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">📚 Context7</h3>
+                    <p class="text-3xl font-light mb-6">Up-to-date library documentation</p>
+                    <div class="text-xl font-mono bg-black bg-opacity-30 rounded-lg p-4">
+                        resolve-library-id<br/>
+                        get-library-docs
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-10 rounded-2xl p-10 backdrop-blur-sm">
+                    <h3 class="text-5xl font-bold mb-6">🌐 Chrome DevTools</h3>
+                    <p class="text-3xl font-light mb-6">Browser automation & debugging</p>
+                    <div class="text-xl font-mono bg-black bg-opacity-30 rounded-lg p-4">
+                        take_snapshot<br/>
+                        click, fill, navigate
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-gradient-to-r from-orange-500 to-red-500 bg-opacity-20 rounded-2xl p-8 backdrop-blur-sm text-center">
+                <p class="text-3xl font-semibold">Unlimited extensibility through open protocol</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 12: Thank You -->
+    <div class="slide" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+        <div class="flex flex-col items-center justify-center w-full text-white">
+            <h2 class="text-9xl font-bold mb-16">Thank You</h2>
+
+            <div class="bg-white bg-opacity-10 rounded-3xl p-12 backdrop-blur-sm">
+                <div class="text-center space-y-8">
+                    <p class="text-5xl font-light">Markus Klug</p>
+                    <div class="flex items-center justify-center gap-6 text-3xl">
+                        <span class="opacity-75">LinkedIn:</span>
+                        <a href="https://linkedin.com/in/opus131" class="text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+                            linkedin.com/in/opus131
+                        </a>
+                    </div>
+                    <div class="text-2xl opacity-75 mt-8">
+                        <span class="font-mono">@opus131</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-3xl opacity-75 text-center">
+                Questions?
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <button id="prevBtn" class="nav-button">← Previous</button>
+    <button id="nextBtn" class="nav-button">Next →</button>
+    
+    <div class="slide-indicator" id="indicators"></div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicatorsContainer = document.getElementById('indicators');
+
+        // Create indicators
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'indicator-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            indicatorsContainer.appendChild(dot);
+        }
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Update indicators
+            document.querySelectorAll('.indicator-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+            
+            // Update progress bar
+            progressBar.style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+            
+            // Update buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function goToSlide(n) {
+            currentSlide = Math.max(0, Math.min(n, totalSlides - 1));
+            updateSlide();
+        }
+
+        prevBtn.onclick = () => goToSlide(currentSlide - 1);
+        nextBtn.onclick = () => goToSlide(currentSlide + 1);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+            if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+            if (e.key === 'Home') goToSlide(0);
+            if (e.key === 'End') goToSlide(totalSlides - 1);
+        });
+
+        updateSlide();
+    </script>
+</body>
+</html>
